@@ -1,76 +1,166 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
-  # Home Manager needs a bit of information about you and the paths it should
-  # manage.
-  home.username = "nate";
-  home.homeDirectory = "/home/nate";
+  home.username = "your-username";
+  home.homeDirectory = "/home/your-username";
+  home.stateVersion = "23.11"; # Use appropriate version
 
-  # This value determines the Home Manager release that your configuration is
-  # compatible with. This helps avoid breakage when a new Home Manager release
-  # introduces backwards incompatible changes.
-  #
-  # You should not change this value, even if you update Home Manager. If you do
-  # want to update the value, then make sure to first check the Home Manager
-  # release notes.
-  home.stateVersion = "24.11"; # Please read the comment before changing.
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
 
-  # The home.packages option allows you to install Nix packages into your
-  # environment.
-  home.packages = [
-    # # Adds the 'hello' command to your environment. It prints a friendly
-    # # "Hello, world!" when run.
-    # pkgs.hello
-
-    # # It is sometimes useful to fine-tune packages, for example, by applying
-    # # overrides. You can do that directly here, just don't forget the
-    # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
-    # # fonts?
-    # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
-
-    # # You can also create simple shell scripts directly inside your
-    # # configuration. For example, this adds a command 'my-hello' to your
-    # # environment:
-    # (pkgs.writeShellScriptBin "my-hello" ''
-    #   echo "Hello, ${config.home.username}!"
-    # '')
+  # Install X and Xfce packages
+  home.packages = with pkgs; [
+    # X.org packages
+    xorg.xorgserver
+    xorg.xinit
+    xorg.xauth
+    xorg.xinput
+    xorg.xrdb
+    xorg.xrandr
+    xorg.xset
+    
+    # Xfce core components
+    xfce.xfce4-panel
+    xfce.xfce4-session
+    xfce.xfce4-settings
+    xfce.xfdesktop
+    xfce.xfwm4
+    xfce.exo
+    xfce.garcon
+    xfce.libxfce4ui
+    xfce.libxfce4util
+    
+    # Xfce applications
+    xfce.thunar
+    xfce.thunar-volman
+    xfce.tumbler
+    xfce.xfce4-appfinder
+    xfce.xfce4-notifyd
+    xfce.xfce4-screenshooter
+    xfce.xfce4-terminal
+    xfce.xfce4-power-manager
+    xfce.xfce4-pulseaudio-plugin
+    xfce.xfce4-whiskermenu-plugin
+    
+    # Display manager (optional if using system DM)
+    lightdm
+    lightdm-gtk-greeter
+    
+    # Basic desktop utilities
+    nitrogen # wallpaper manager
+    networkmanagerapplet
+    pavucontrol # audio control
+    arandr # screen layout
+    
+    # Common applications
+    firefox
+    gnome.file-roller # archive manager
+    gnome.gnome-calculator
   ];
 
-  # Home Manager is pretty good at managing dotfiles. The primary way to manage
-  # plain files is through 'home.file'.
-  home.file = {
-    # # Building this configuration will create a copy of 'dotfiles/screenrc' in
-    # # the Nix store. Activating the configuration will then make '~/.screenrc' a
-    # # symlink to the Nix store copy.
-    # ".screenrc".source = dotfiles/screenrc;
-
-    # # You can also set the file content immediately.
-    # ".gradle/gradle.properties".text = ''
-    #   org.gradle.console=verbose
-    #   org.gradle.daemon.idletimeout=3600000
-    # '';
+  # Configure X11
+  xsession = {
+    enable = true;
+    windowManager.command = "startxfce4";
+    
+    # This creates a .xsession file that launches Xfce
+    scriptPath = ".xsession";
   };
 
-  # Home Manager can also manage your environment variables through
-  # 'home.sessionVariables'. These will be explicitly sourced when using a
-  # shell provided by Home Manager. If you don't want to manage your shell
-  # through Home Manager then you have to manually source 'hm-session-vars.sh'
-  # located at either
-  #
-  #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  ~/.local/state/nix/profiles/profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  /etc/profiles/per-user/nate/etc/profile.d/hm-session-vars.sh
-  #
-  home.sessionVariables = {
-    # EDITOR = "emacs";
+  # Configure .xinitrc as well
+  home.file.".xinitrc" = {
+    text = ''
+      #!/bin/sh
+      if [ -d $HOME/.nix-profile/etc/xdg ]; then
+        export XDG_CONFIG_DIRS="$HOME/.nix-profile/etc/xdg''${XDG_CONFIG_DIRS:+:$XDG_CONFIG_DIRS}"
+      fi
+      
+      if [ -d $HOME/.nix-profile/share ]; then
+        export XDG_DATA_DIRS="$HOME/.nix-profile/share''${XDG_DATA_DIRS:+:$XDG_DATA_DIRS}"
+      fi
+      
+      exec startxfce4
+    '';
+    executable = true;
   };
 
-  # Let Home Manager install and manage itself.
+  # Configure Xfce settings
+  xdg.configFile = {
+    # Example Xfce panel configuration
+    "xfce4/panel/whiskermenu-1.rc" = {
+      text = ''
+        favorites=firefox.desktop,thunar.desktop,xfce4-terminal.desktop
+        recent=
+        button-title=Applications
+        button-icon=xfce4-whiskermenu
+        button-single-row=false
+        show-button-title=false
+        show-button-icon=true
+        launcher-show-name=true
+        launcher-show-description=true
+        launcher-show-tooltip=true
+        item-icon-size=2
+        hover-switch-category=false
+        category-show-name=true
+        category-icon-size=1
+        load-hierarchy=false
+        view-as-icons=false
+        default-category=0
+        recent-items-max=10
+        favorites-in-recent=true
+        position-search-alternate=false
+        position-commands-alternate=false
+        position-categories-alternate=false
+        menu-width=400
+        menu-height=500
+        menu-opacity=100
+        command-settings=xfce4-settings-manager
+        show-command-settings=true
+        command-lockscreen=xflock4
+        show-command-lockscreen=true
+        command-switchuser=gdmflexiserver
+        show-command-switchuser=false
+        command-logout=xfce4-session-logout
+        show-command-logout=true
+        command-menueditor=menulibre
+        show-command-menueditor=false
+        command-profile=mugshot
+        show-command-profile=false
+        search-actions=5
+        
+        [action0]
+        name=Man Pages
+        pattern=#
+        command=exo-open --launch TerminalEmulator man %s
+        regex=false
+        
+        [action1]
+        name=Web Search
+        pattern=?
+        command=exo-open --launch WebBrowser https://duckduckgo.com/?q=%u
+        regex=false
+        
+        [action2]
+        name=Wikipedia
+        pattern=!w
+        command=exo-open --launch WebBrowser https://en.wikipedia.org/wiki/%u
+        regex=false
+        
+        [action3]
+        name=Run in Terminal
+        pattern=!
+        command=exo-open --launch TerminalEmulator %s
+        regex=false
+        
+        [action4]
+        name=Open URI
+        pattern=^(file|http|https):\\/\\/(.*)$
+        command=exo-open \\0
+        regex=true
+      '';
+    };
+  };
+
+  # Enable home-manager
   programs.home-manager.enable = true;
 }
