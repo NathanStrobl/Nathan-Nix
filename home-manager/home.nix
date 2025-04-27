@@ -1,9 +1,9 @@
 { config, pkgs, lib, ... }:
 
 {
-  home.username = "your-username";
-  home.homeDirectory = "/home/your-username";
-  home.stateVersion = "23.11"; # Use appropriate version
+  home.username = "nate";
+  home.homeDirectory = "/home/nate";
+  home.stateVersion = "25.05-pre"; # Use appropriate version
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
