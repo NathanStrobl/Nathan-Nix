@@ -25,14 +25,6 @@
     picom
   ];
 
-  # Installs LunarVim
-  home.activation.installLunarVim = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    if [ ! -d "$HOME/.local/share/lunarvim" ]; then
-      echo "Installing LunarVim..."
-      bash <(curl -s https://raw.githubusercontent.com/LunarVim/LunarVim/master/utils/installer/install.sh) --no-install-dependencies
-    fi
-  '';
-
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
   # introduces backwards incompatible changes.
@@ -59,6 +51,11 @@
   programs.bash.initExtra = ''
     if [ -z "$DISPLAY" ] && [ "$(tty)" = "/dev/tty2" ]; then
       exec startx
+    fi
+
+    if [ ! -d "$HOME/.local/share/lunarvim" ]; then
+      echo "Installing LunarVim..."
+      bash <(curl -s https://raw.githubusercontent.com/LunarVim/LunarVim/master/utils/installer/install.sh) --no-install-dependencies
     fi
 
     alias gs='git status'
