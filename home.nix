@@ -7,8 +7,12 @@
   home.homeDirectory = "/home/nate-nix";
 
   # Packages to be installed to the user profile.
-  home.packages = [
-    pkgs.htop
+  home.packages = with pkgs; [
+    htop
+    xorg.xinit
+    xorg.xserver
+    xterm
+    awesome
   ];
 
   # This value determines the Home Manager release that your configuration is
@@ -22,4 +26,16 @@
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+
+  # Graphical environment setup.
+  programs.bash.enable = true;
+  programs.bash.initExtra = ''
+    if [ -z "$DISPLAY" ] && [ "$(tty)" = "/dev/tty2" ]; then
+      exec startx
+    fi
+  '';
+
+  home.file.".xinitrc".text = ''
+    exec awesome
+  ''
 }
