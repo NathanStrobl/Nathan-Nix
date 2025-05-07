@@ -44,6 +44,7 @@
 
   home.file.".config/alacritty".source = ./config/alacritty;
   home.file.".config/awesome".source = ./config/awesome;
+  home.file.".config/lvim".source = ./config/lvim
   home.file.".config/picom".source = ./config/picom;
   home.file.".config/polybar".source = ./config/polybar;
 
