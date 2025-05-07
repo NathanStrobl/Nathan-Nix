@@ -65,7 +65,7 @@
     alias gd='git diff'
     alias gpsuo='git push -u origin'
 
-    export PATH="${config.home.homeDirectory}/.local/bin/lvim:$PATH"
+    export PATH="$HOME/.local/bin:$PATH"
   '';
 
   home.sessionVariables = {
