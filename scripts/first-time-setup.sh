@@ -13,4 +13,7 @@ nix-channel --add https://github.com/nix-community/nixGL/archive/main.tar.gz nix
 nix-channel --update
 nix-env -iA nixgl.auto.nixGLDefault
 
+echo -e "Creating Downloads directory in home folder...\n"
+mkdir ~/Downloads
+
 echo -e "\n\nSystem setup complete!\n\n"
