@@ -53,11 +53,6 @@
       exec startx
     fi
 
-    if [ ! -d "$HOME/.local/share/lunarvim" ]; then
-      echo "Installing LunarVim..."
-      bash <(curl -s https://raw.githubusercontent.com/LunarVim/LunarVim/master/utils/installer/install.sh) --no-install-dependencies
-    fi
-
     alias gs='git status'
     alias gc='git commit -m'
     alias ga='git add --all'
