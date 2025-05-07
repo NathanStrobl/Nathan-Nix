@@ -1,4 +1,4 @@
 #!/bin/bash
 
-cp ~/Nathan-Nix/home.nix ~/.config/home-manager/home.nix
+cp -r ~/Nathan-Nix/* ~/.config/home-manager/
 home-manager switch -b backup
