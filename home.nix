@@ -14,7 +14,6 @@
     # Graphical applications
     alacritty
     firefox
-    pulseaudio
     pavucontrol
     
     # Graphical environment
@@ -58,4 +57,6 @@
   home.sessionVariables = {
     XDG_CONFIG_HOME = "${config.home.homeDirectory}/.config";
   };
+
+  hardware.pulseaudio.enable = true;
 }
