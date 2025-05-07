@@ -10,7 +10,6 @@
   home.packages = with pkgs; [
     htop
     xorg.xinit
-    xorg.xserver
     xterm
     awesome
   ];
