@@ -3,8 +3,8 @@
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
-  home.username = "nate";
-  home.homeDirectory = "/home/nate";
+  home.username = "nate-nix";
+  home.homeDirectory = "/home/nate-nix";
 
   # Packages to be installed to the user profile.
   home.packages = [
