@@ -8,10 +8,19 @@
 
   # Packages to be installed to the user profile.
   home.packages = with pkgs; [
+    # Command-line applications
     htop
+
+    # Graphical applications
+    alacritty
+    
+    # Graphical environment
     xorg.xinit
     xterm
     awesome
+    polybar
+    pcmanfm
+    picom
   ];
 
   # This value determines the Home Manager release that your configuration is
@@ -31,8 +40,8 @@
     exec awesome
   '';
 
-  home.file.".config/awesome/rc.lua".source = ./awesome-wm/rc.lua;
-  home.file.".config/awesome/theme.lua".source = ./awesome-wm/theme.lua;
+  home.file.".config/awesome/rc.lua".source = ./.config/awesome-wm/rc.lua;
+  home.file.".config/awesome/theme.lua".source = ./.config/awesome-wm/theme.lua;
 
   programs.bash.enable = true;
   programs.bash.initExtra = ''

@@ -49,7 +49,7 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init("/etc/xdg/awesome/theme.lua")
+beautiful.init("~/.config/awesome/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "alacritty"
@@ -117,9 +117,9 @@ mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
                                      menu = mymainmenu })
 
 -- Polybar
-awful.spawn.with_shell("/home/nate/.config/polybar/launch.sh")
+awful.spawn.with_shell("~/.config/polybar/launch.sh")
 awful.spawn.with_shell("pcmanfm --desktop &")
-awful.spawn.with_shell("picom --config /home/nate/.config/picom/picom.conf --backend glx &")
+awful.spawn.with_shell("picom --config ~/.config/picom/picom.conf --backend glx &")
 
 
 -- Menubar configuration
