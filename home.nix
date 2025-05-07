@@ -40,8 +40,7 @@
     exec awesome
   '';
 
-  home.file.".config/awesome/rc.lua".source = ./.config/awesome-wm/rc.lua;
-  home.file.".config/awesome/theme.lua".source = ./.config/awesome-wm/theme.lua;
+  home.file.".config".source = ./config;
 
   programs.bash.enable = true;
   programs.bash.initExtra = ''
