@@ -52,6 +52,17 @@
     if [ -z "$DISPLAY" ] && [ "$(tty)" = "/dev/tty2" ]; then
       exec startx
     fi
+
+    alias gs='git status'
+    alias gc='git commit -m'
+    alias ga='git add --all'
+    alias gpl='git pull'
+    alias gps='git push'
+    alias gsw='git switch'
+    alias gl='git log'
+    alias gb='git branch'
+    alias gd='git diff'
+    alias gpsuo='git push -u origin'
   '';
 
   home.sessionVariables = {
