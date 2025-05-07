@@ -28,6 +28,13 @@
   programs.home-manager.enable = true;
 
   # Graphical environment setup.
+  home.file.".xinitrc".text = ''
+    exec awesome
+  '';
+
+  home.file.".config/awesome/rc.lua".source = ./awesome-wm/rc.lua;
+  home.file.".config/awesome/theme.lua".source = ./awesome-wm/theme.lua;
+
   programs.bash.enable = true;
   programs.bash.initExtra = ''
     if [ -z "$DISPLAY" ] && [ "$(tty)" = "/dev/tty2" ]; then
@@ -35,7 +42,7 @@
     fi
   '';
 
-  home.file.".xinitrc".text = ''
-    exec awesome
-  ''
+  home.sessionVariables = {
+    XDG_CONFIG_HOME = "${config.home.homeDirectory}/.config";
+  };
 }
