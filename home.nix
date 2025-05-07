@@ -10,6 +10,7 @@
   home.packages = with pkgs; [
     # Command-line applications
     htop
+    neovim
 
     # Graphical applications
     alacritty
@@ -23,6 +24,14 @@
     pcmanfm
     picom
   ];
+
+  # Installs LunarVim
+  home.activation.installLunarVim = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    if [ ! -d "$HOME/.local/share/lunarvim" ]; then
+      echo "Installing LunarVim..."
+      bash <(curl -s https://raw.githubusercontent.com/LunarVim/LunarVim/master/utils/installer/install.sh) --no-install-dependencies
+    fi
+  '';
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -62,6 +71,8 @@
     alias gb='git branch'
     alias gd='git diff'
     alias gpsuo='git push -u origin'
+
+    export PATH="${config.home.homeDirectory}/.local/bin/lvim:$PATH"
   '';
 
   home.sessionVariables = {
