@@ -13,6 +13,9 @@
 
     # Graphical applications
     alacritty
+    firefox
+    pulseaudio
+    pavucontrol
     
     # Graphical environment
     xorg.xinit
