@@ -14,7 +14,6 @@
     # Graphical applications
     alacritty
     firefox
-    pavucontrol
     
     # Graphical environment
     xorg.xinit
