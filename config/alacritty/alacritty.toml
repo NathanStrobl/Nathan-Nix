@@ -1,0 +1,6 @@
+[font]
+size = 7.5
+
+[font.normal]
+family = "Monospace"
+style = "Regular"
