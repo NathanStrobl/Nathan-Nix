@@ -40,7 +40,9 @@
     exec awesome
   '';
 
-  home.file.".config".source = ./config;
+  home.file.".config/awesome".source = ./config/awesome;
+  home.file.".config/picom".source = "./config/picom";
+  home.file.".config/polybar".source = "./config/polybar"
 
   programs.bash.enable = true;
   programs.bash.initExtra = ''
