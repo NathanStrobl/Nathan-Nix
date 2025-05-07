@@ -52,7 +52,7 @@ end
 beautiful.init("~/.config/awesome/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = os.getenv("HOME") .. "/.nix-profile/bin/alacritty"
+terminal = "nixGL alacritty"
 editor = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal .. " -e " .. editor
 
