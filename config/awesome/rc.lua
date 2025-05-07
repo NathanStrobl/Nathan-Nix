@@ -116,10 +116,10 @@ end
 mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
                                      menu = mymainmenu })
 
--- Polybar
-awful.spawn.with_shell("~/.config/polybar/launch.sh")
+-- Custom desktop environment components.
 awful.spawn.with_shell("pcmanfm --desktop &")
 awful.spawn.with_shell("nixGL picom --config ~/.config/picom/picom.conf --backend glx &")
+awful.spawn.with_shell("~/.config/polybar/launch.sh")
 
 
 -- Menubar configuration

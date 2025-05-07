@@ -57,10 +57,4 @@
   home.sessionVariables = {
     XDG_CONFIG_HOME = "${config.home.homeDirectory}/.config";
   };
-
-  hardware = {
-    pulseaudio = {
-      enable = true;
-    }
-  }
 }
