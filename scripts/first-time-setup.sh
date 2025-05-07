@@ -1,7 +1,4 @@
 #!/bin/bash
-echo -e "Installing Nix...\n"
-curl -L https://nixos.org/nix/install | sh -s -- --daemon
-
 echo -e "Installing Nix home-manager...\n"
 nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
 nix-channel --update
