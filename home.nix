@@ -10,6 +10,8 @@
   home.packages = with pkgs; [
     # Command-line applications
     htop
+    xdotool
+    vim
     neovim
 
     # Graphical applications

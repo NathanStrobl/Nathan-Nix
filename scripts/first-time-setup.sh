@@ -16,14 +16,14 @@ cd $HOME/Nathan-Nix/scripts
 echo -e "Creating Downloads directory in home folder...\n"
 mkdir ~/Downloads
 
-if [ ! -d "$HOME/.local/share/lunarvim" ]; then
-    echo -e "Installing LunarVim...\n"
-    bash <(curl -s https://raw.githubusercontent.com/LunarVim/LunarVim/master/utils/installer/install.sh) --no-install-dependencies
-
-    echo -e "Installing SpaceMono font...\n"
+echo -e "Installing SpaceMono font...\n"
     mkdir -p ~/.local/share/fonts
     cd ~/.local/share/fonts && curl -fLO https://github.com/ryanoasis/nerd-fonts/raw/HEAD/patched-fonts/SpaceMono/Regular/SpaceMonoNerdFontMono-Regular.ttf
     fc-cache -f -v
-fi
 
-echo -e "\n\nSystem setup complete!\n\n"
+echo -e "Setting Git global variables...\n"
+git config --global user.email "nas4635@rit.edu"
+git config --global user.name "Nathan Strobl"
+
+cd $HOME
+echo -e "\n\nSystem setup complete!\nPlease log out and log back in for changes to take effect.\n\n"
